@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+transcribe-anything
+openai-whisper

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription App</title>
+    <script>
+        async function transcribeLink() {
+            const link = document.getElementById('link').value;
+            try {
+                const response = await fetch('http://127.0.0.1:8000/transcribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ link })
+                });
+                const data = await response.json();
+                document.getElementById('output').textContent = data.result || data.detail;
+            } catch (error) {
+                document.getElementById('output').textContent = "Error: " + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Transcription App</h1>
+    <input type="text" id="link" placeholder="Enter link here">
+    <button onclick="transcribeLink()">Transcribe</button>
+    <pre id="output"></pre>
+</body>
+</html>
